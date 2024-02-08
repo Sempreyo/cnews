@@ -2128,17 +2128,177 @@ groups_tree_data = [{
 	"text": "Периферия (принтеры, ИБП, другие устройства)",
 	"groupId": 4
 }, {"text": "Сетевые и коммуникационные решения", "groupId": 5}];
-grid_settings = [{"col": 1, "row": 1, "size_x": 12, "size_y": 10}, {
-	"col": 13,
-	"row": 1,
-	"size_x": 20,
-	"size_y": 8
-}, {"col": 13, "row": 9, "size_x": 14, "size_y": 4}, {"col": 1, "row": 11, "size_x": 12, "size_y": 7}, {
-	"col": 13,
-	"row": 13,
-	"size_x": 12,
-	"size_y": 9
-}];
+
+const setGrid = () => {
+	if (window.matchMedia("(max-width: 575px)").matches) {
+		grid_settings = [
+			{
+				"col": 1,
+				"row": 57,
+				"size_x": 6,
+				"size_y": 17
+			},
+			{
+				"col": 1,
+				"row": 14,
+				"size_x": 6,
+				"size_y": 22
+			},
+			{
+				"col": 1,
+				"row": 36,
+				"size_x": 6,
+				"size_y": 9
+			},
+			{
+				"col": 1,
+				"row": 45,
+				"size_x": 6,
+				"size_y": 10
+			},
+			{
+				"col": 1,
+				"row": 0,
+				"size_x": 6,
+				"size_y": 14
+			}
+		];
+	} else if (window.matchMedia("(max-width: 767px)").matches) {
+		grid_settings = [
+			{
+				"col": 1,
+				"row": 1,
+				"size_x": 6,
+				"size_y": 17
+			},
+			{
+				"col": 7,
+				"row": 1,
+				"size_x": 6,
+				"size_y": 22
+			},
+			{
+				"col": 7,
+				"row": 23,
+				"size_x": 6,
+				"size_y": 9
+			},
+			{
+				"col": 1,
+				"row": 18,
+				"size_x": 6,
+				"size_y": 10
+			},
+			{
+				"col": 7,
+				"row": 32,
+				"size_x": 6,
+				"size_y": 17
+			}
+		];
+	} else if (window.matchMedia("(max-width: 991px)").matches) {
+		grid_settings = [
+			{
+				"col": 1,
+				"row": 1,
+				"size_x": 8,
+				"size_y": 13
+			},
+			{
+				"col": 9,
+				"row": 1,
+				"size_x": 8,
+				"size_y": 16
+			},
+			{
+				"col": 9,
+				"row": 17,
+				"size_x": 8,
+				"size_y": 6
+			},
+			{
+				"col": 1,
+				"row": 14,
+				"size_x": 8,
+				"size_y": 8
+			},
+			{
+				"col": 9,
+				"row": 23,
+				"size_x": 8,
+				"size_y": 12
+			}
+		];
+	} else if (window.matchMedia("(max-width: 1279px)").matches) {
+		grid_settings = [
+			{
+				"col": 1,
+				"row": 1,
+				"size_x": 11,
+				"size_y": 10
+			},
+			{
+				"col": 12,
+				"row": 1,
+				"size_x": 11,
+				"size_y": 11
+			},
+			{
+				"col": 12,
+				"row": 12,
+				"size_x": 11,
+				"size_y": 5
+			},
+			{
+				"col": 1,
+				"row": 11,
+				"size_x": 11,
+				"size_y": 6
+			},
+			{
+				"col": 12,
+				"row": 17,
+				"size_x": 11,
+				"size_y": 8
+			}
+		];
+	} else {
+		grid_settings = [
+			{
+				"col": 1,
+				"row": 1,
+				"size_x": 12,
+				"size_y": 10
+			},
+			{
+				"col": 13,
+				"row": 1,
+				"size_x": 20,
+				"size_y": 8
+			},
+			{
+				"col": 13,
+				"row": 9,
+				"size_x": 14,
+				"size_y": 4
+			},
+			{
+				"col": 1,
+				"row": 11,
+				"size_x": 12,
+				"size_y": 7
+			},
+			{
+				"col": 13,
+				"row": 13,
+				"size_x": 12,
+				"size_y": 9
+			}
+		];
+	}
+}
+
+setGrid();
 
 let zoom = 1.0;
 const zoomStep = 0.1;
@@ -2455,4 +2615,18 @@ $(document).ready(function () {
 	insertRootGroups(gridster);
 	gridster.disable();
 	$('.logo-groups-container').css({"width": $(selector).width(), "height": $(selector).height()});
+
+	const resizeObserver = new ResizeObserver(entries => {
+		for (const entry of entries) {
+			if (entry.target === document.querySelector('.site-wrapper')) {
+				document.querySelector(selector).innerHTML = "";
+				setGrid();
+				gridster.remove_all_widgets();
+				insertRootGroups(gridster);
+				gridster.disable();
+				$('.logo-groups-container').css({"width": $(selector).width(), "height": $(selector).height()});
+			}
+		}
+	});
+	resizeObserver.observe(document.querySelector('.site-wrapper'));
 });
