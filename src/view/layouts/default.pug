@@ -1,0 +1,27 @@
+doctype html
+
+block vars
+include ../mixins/mixins
+
+html(lang='ru')
+	head
+		meta(charset='UTF-8')
+		meta(name='viewport', content='width=device-width, initial-scale=1.0')
+		meta(property='og:title' content='Импортозамещение 2023')
+		meta(property='og:image' content='https://filearchive.cnews.ru/img/cnews/2023/02/16/img1.png')
+		meta(property='og:description' content='Аппаратное обеспечение')
+		meta(name='description', content='Аппаратное обеспечение')
+		meta(name='keywords', content='карта')
+
+		title= `${page.title}`
+		link(rel='stylesheet' type='text/css' href='https://www.cnews.ru/inc/static/maps/fonts.css')
+		link(rel='stylesheet' type='text/css' href='https://www.cnews.ru/inc/static/maps/bootstrap_5.3.0.min.css')
+		link(rel='stylesheet' type='text/css' href='https://www.cnews.ru/inc/map_editor/assets/gridster/jquery.gridster.css')
+		link(href='css/main.min.css', rel='stylesheet', type='text/css')
+
+	body.map-page
+		block main
+
+	block scripts
+
+	script(src="js/main.min.js")
